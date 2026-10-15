@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tailed Beast Hunt</title>
+<style>
+  :root { --bg: #07080f; --text: #a8aec8; --key: #e8eaff; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); font: 13px/1.4 "Trebuchet MS", "Segoe UI", sans-serif; }
+  body { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 12px; }
+  /* the game, as large as fits, at the PSP aspect ratio (480 x 272) */
+  .game { width: min(100%, calc((100vh - 60px) * 480 / 272)); aspect-ratio: 480 / 272; border: 0; background: #000; display: block; }
+  .controls { text-align: center; }
+  kbd { background: #1c1f30; border: 1px solid #343852; border-bottom-width: 2px; border-radius: 4px; padding: 0 5px; font: 12px monospace; color: var(--key); }
+</style>
+</head>
+<body>
+  <iframe class="game" id="game" src="../web/index.html" title="Tailed Beast Hunt" allow="gamepad; autoplay"></iframe>
+  <p class="controls">
+    <b>Mouse:</b> click to choose, right-click to go back, wheel to scroll &nbsp;·&nbsp;
+    <b>Keys:</b> <kbd>Arrows</kbd> move, <kbd>Z</kbd> confirm, <kbd>X</kbd> back, <kbd>C</kbd> menu, <kbd>V</kbd> skip, <kbd>Q</kbd>/<kbd>E</kbd> page, hold <kbd>E</kbd> fast battles &nbsp;·&nbsp; gamepads work too
+  </p>
+<script>
+  // Keep keyboard focus in the game.
+  const frame = document.getElementById("game");
+  frame.addEventListener("load", () => frame.focus());
+  addEventListener("keydown", (e) => {
+    if (document.activeElement !== frame) { frame.focus(); frame.contentWindow?.dispatchEvent(new KeyboardEvent("keydown", { code: e.code, key: e.key, bubbles: true })); e.preventDefault(); }
+  });
+</script>
+</body>
+</html>
